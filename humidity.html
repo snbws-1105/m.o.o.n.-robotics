@@ -12,16 +12,22 @@
     <br><br>
 
     <h2>Enter Location:</h2>
-<input type="text" id="city">
-<button onclick="getWeather()">Search</button>
+<form onsubmit="getWeather(event)">
+  <input type="text" id="city" placeholder="Enter city">
+  <button type="submit">Search</button>
+</form>
+
+<h3 id="result"></h3>
 
 <h3 id="result"></h3>
 
 <script>
-async function getWeather() {
-  const city = document.getElementById("city").value;
+async function getWeather(event) {
+  event.preventDefault();   // prevents page reload
 
+  const city = document.getElementById("city").value;
   const apiKey = "ff629b1b17972220e88e8578807aabfd";
+
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   const response = await fetch(url);
@@ -40,4 +46,5 @@ async function getWeather() {
 </body>
 
 </html>
+
 
