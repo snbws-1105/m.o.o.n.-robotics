@@ -25,37 +25,69 @@
 </center>
 
 <script>
+
 async function getAQI(event) {
   event.preventDefault();
 
   const city = document.getElementById("city").value;
   const apiKey = "ff629b1b17972220e88e8578807aabfd";
 
-  // Step 1: Get lat/lon from city
   const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   const geoResponse = await fetch(geoUrl);
   const geoData = await geoResponse.json();
 
-  if (geoResponse.status !== 200) {
-    document.getElementById("result").innerHTML = "City not found.";
-    return;
-  }
-
   const lat = geoData.coord.lat;
   const lon = geoData.coord.lon;
 
-  // Step 2: Get AQI
   const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
   const aqiResponse = await fetch(aqiUrl);
   const aqiData = await aqiResponse.json();
 
-  const aqi = aqiData.list[0].main.aqi;
+  const pm25 = aqiData.list[0].components.pm2_5;
+  const pm10 = aqiData.list[0].components.pm10;
+
+  const result = calculateAQI(pm25);
 
   document.getElementById("result").innerHTML =
-    "AQI Index: " + aqi +
-    "<br>(1=Good, 2=Fair, 3=Moderate, 4=Poor, 5=Very Poor)";
+    "<b>Real AQI: " + result.value + "</b>" +
+    "<br>Status: " + result.category +
+    "<br><br>PM2.5: " + pm25 + " µg/m³" +
+    "<br>PM10: " + pm10 + " µg/m³";
 }
+
+
+// 👇 Put this directly below, NO new <script> tag
+function calculateAQI(pm25) {
+  let aqi = 0;
+  let category = "";
+
+  const breakpoints = [
+    { pmLow: 0, pmHigh: 12, aqiLow: 0, aqiHigh: 50, category: "Good" },
+    { pmLow: 12.1, pmHigh: 35.4, aqiLow: 51, aqiHigh: 100, category: "Moderate" },
+    { pmLow: 35.5, pmHigh: 55.4, aqiLow: 101, aqiHigh: 150, category: "Unhealthy (Sensitive)" },
+    { pmLow: 55.5, pmHigh: 150.4, aqiLow: 151, aqiHigh: 200, category: "Unhealthy" },
+    { pmLow: 150.5, pmHigh: 250.4, aqiLow: 201, aqiHigh: 300, category: "Very Unhealthy" },
+    { pmLow: 250.5, pmHigh: 500, aqiLow: 301, aqiHigh: 500, category: "Hazardous" }
+  ];
+
+  for (let i = 0; i < breakpoints.length; i++) {
+    const bp = breakpoints[i];
+    if (pm25 >= bp.pmLow && pm25 <= bp.pmHigh) {
+      aqi = ((bp.aqiHigh - bp.aqiLow) / (bp.pmHigh - bp.pmLow)) *
+            (pm25 - bp.pmLow) + bp.aqiLow;
+      category = bp.category;
+      break;
+    }
+  }
+
+  return {
+    value: Math.round(aqi),
+    category: category
+  };
+}
+
 </script>
 
 </body>
 </html>
+
