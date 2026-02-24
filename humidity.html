@@ -11,17 +11,32 @@
     <font size="6"><b>Humidity Details</b></font>
     <br><br>
 
-    <table width="60%" bgcolor="#1d1d1d" cellpadding="20">
-        <tr><td>
-            Current Humidity: 72% <br><br>
-            Temperature: 30°C <br><br>
-            Weather Condition: Partly Cloudy
-        </td></tr>
-    </table>
+    <h2>Enter Location:</h2>
+<input type="text" id="city">
+<button onclick="getWeather()">Search</button>
+
+<h3 id="result"></h3>
+
+<script>
+async function getWeather() {
+  const city = document.getElementById("city").value;
+
+  const apiKey = "YOUR_API_KEY";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  document.getElementById("result").innerHTML =
+    "Temperature: " + data.main.temp + "°C<br>" +
+    "Humidity: " + data.main.humidity + "%";
+}
+</script>
 
     <br><br>
     <a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
 </center>
 
 </body>
+
 </html>
