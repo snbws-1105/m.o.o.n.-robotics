@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AQI - M.O.O.N</title>
+  <title>AQI - M.O.O.N</title>
 </head>
 
 <body bgcolor="#0f0f0f" text="white">
-
 <center>
-    <br><br>
-    <font size="6"><b>Air Quality Index</b></font>
-    <br><br>
 
-    <table width="60%" bgcolor="#1d1d1d" cellpadding="20">
-        <tr><td>
-            Current AQI: 85 <br><br>
-            Category: Moderate <br><br>
-            Main Pollutant: PM2.5 <br><br>
-            Health Advisory: Sensitive groups should reduce outdoor activity.
-        </td></tr>
-    </table>
+<br><br>
+<font size="6"><b>AQI Details</b></font>
+<br><br>
 
-    <br><br>
-    <a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
+<form onsubmit="getAQI(event)">
+  <input type="text" id="city" placeholder="Enter city">
+  <button type="submit">Search</button>
+</form>
+
+<br>
+<h3 id="result"></h3>
+
+<br><br>
+<a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
+
 </center>
+
+<script>
+async function getAQI(event) {
+  event.preventDefault();
+
+  const city = document.getElementById("city").value;
+  const apiKey = "ff629b1b17972220e88e8578807aabfd";
+
+  // Step 1: Get lat/lon from city
+  const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  const geoResponse = await fetch(geoUrl);
+  const geoData = await geoResponse.json();
+
+  if (geoResponse.status !== 200) {
+    document.getElementById("result").innerHTML = "City not found.";
+    return;
+  }
+
+  const lat = geoData.coord.lat;
+  const lon = geoData.coord.lon;
+
+  // Step 2: Get AQI
+  const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  const aqiResponse = await fetch(aqiUrl);
+  const aqiData = await aqiResponse.json();
+
+  const aqi = aqiData.list[0].main.aqi;
+
+  document.getElementById("result").innerHTML =
+    "AQI Index: " + aqi +
+    "<br>(1=Good, 2=Fair, 3=Moderate, 4=Poor, 5=Very Poor)";
+}
+</script>
 
 </body>
 </html>
