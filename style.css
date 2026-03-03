@@ -1,0 +1,64 @@
+/* General Page Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+}
+
+/* Title */
+h1, h2 {
+  margin-top: 40px;
+}
+
+/* Form Styling */
+form {
+  margin-top: 30px;
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin: 8px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background-color: #00c6ff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #00ffcc;
+  transform: scale(1.05);
+}
+
+/* Result Card */
+#result {
+  margin-top: 25px;
+  padding: 20px;
+  display: inline-block;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+/* Navigation Link */
+a {
+  color: #00ffcc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
