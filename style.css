@@ -1,64 +1,88 @@
-/* General Page Styling */
-body {
+/* Reset */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Poppins', sans-serif;
   color: white;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Dark overlay for readability */
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glass Card */
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 15px;
+  backdrop-filter: blur(2px);
   text-align: center;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
 }
 
-/* Title */
+/* Headings */
 h1, h2 {
-  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
-/* Form Styling */
-form {
-  margin-top: 30px;
-}
-
+/* Inputs */
 input, select {
   padding: 10px;
+  margin: 10px;
   border-radius: 6px;
   border: none;
-  margin: 8px;
-  font-size: 14px;
+  width: 80%;
 }
 
+/* Button */
 button {
   padding: 10px 20px;
   border-radius: 6px;
   border: none;
-  background-color: #00c6ff;
-  color: black;
+  background: #00ffcc;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  background-color: #00ffcc;
+  background: #00c6ff;
   transform: scale(1.05);
 }
 
-/* Result Card */
+/* Result Box */
 #result {
-  margin-top: 25px;
-  padding: 20px;
-  display: inline-block;
-  background-color: rgba(255,255,255,0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  margin-top: 20px;
+  padding: 15px;
 }
 
-/* Navigation Link */
+/* Back link */
 a {
+  display: inline-block;
+  margin-top: 20px;
   color: #00ffcc;
   text-decoration: none;
-  font-weight: bold;
 }
 
-a:hover {
-  text-decoration: underline;
-}
+
+
