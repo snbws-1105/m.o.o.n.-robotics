@@ -1,66 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Crop Details - M.O.O.N</title>
-  <link rel="stylesheet" href="style.css">
+    <title>Humidity - M.O.O.N</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body >
+<body style="background-image: url('images/autumn-field.jpg');">
+<div class="overlay">
+<div class="container">
+
 <center>
+    <br><br>
+    <font size="6"><b>Humidity & Temperature</b></font>
+    <br><br>
 
-<br><br>
-<font size="6"><b>Crop Details</b></font>
-<br><br>
+    <!-- 🔥 Replace old static table with this -->
 
-<form onsubmit="searchCrop(event)">
-  <input type="text" id="cropName" placeholder="Enter crop name">
+    <h2>Enter Location:</h2>
+    <form onsubmit="getWeather(event)">
+  <input type="text" id="city" placeholder="Enter city">
   <button type="submit">Search</button>
 </form>
 
-<br>
 <h3 id="result"></h3>
+    <br><br>
+    <h3 id="result"></h3>
 
-<br><br>
-<a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
-
+    <br><br>
+    <a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
 </center>
 
 <script>
-const crops = {
-  rice: {
-    soil: "Clay soil",
-    season: "Kharif",
-    water: "High water requirement"
-  },
-  wheat: {
-    soil: "Loamy soil",
-    season: "Rabi",
-    water: "Moderate water requirement"
-  },
-  maize: {
-    soil: "Well-drained soil",
-    season: "Kharif/Rabi",
-    water: "Moderate"
-  }
-};
+async function getWeather(event) {
+  event.preventDefault();   // prevents page reload
 
-function searchCrop(event) {
-  event.preventDefault();
+  const city = document.getElementById("city").value;
 
-  const name = document.getElementById("cropName").value.toLowerCase();
-  const result = document.getElementById("result");
+  const apiKey = "9af605c6039803ed7ef6884286a4604a";   // replace this
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  if (crops[name]) {
-    result.innerHTML =
-      "Soil: " + crops[name].soil + "<br>" +
-      "Season: " + crops[name].season + "<br>" +
-      "Water: " + crops[name].water;
-  } else {
-    result.innerHTML = "Crop not found.";
-  }
+  const response = await fetch(url);
+  const data = await response.json();
+
+  document.getElementById("result").innerHTML =
+    "Temperature: " + data.main.temp + "°C<br>" +
+    "Humidity: " + data.main.humidity + "%";
 }
 </script>
 
+</div>
+</div>
 </body>
 </html>
+
 
