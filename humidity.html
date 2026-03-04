@@ -1,99 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Soil Requirements - M.O.O.N</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Humidity - M.O.O.N</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background-image: url('images/plant-soil.jpg');">
+<body style="background-image: url('images/autumn-field.jpg');">
 <div class="overlay">
 <div class="container">
+
 <center>
+    <br><br>
+    <font size="6"><b>Humidity & Temperature</b></font>
+    <br><br>
 
-<br><br>
-<font size="6"><b>Soil Requirement Finder</b></font>
-<br><br>
+    <!-- 🔥 Replace old static table with this -->
 
-<form onsubmit="getSoilData(event)">
-  <input type="text" id="cropName" placeholder="Enter crop name" required>
+    <h2>Enter Location:</h2>
+    <form onsubmit="getWeather(event)">
+  <input type="text" id="city" placeholder="Enter city">
   <button type="submit">Search</button>
 </form>
 
-<br>
 <h3 id="result"></h3>
+    <br><br>
+    <h3 id="result"></h3>
 
-<br><br>
-<a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
-
+    <br><br>
+    <a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
 </center>
 
 <script>
+async function getWeather(event) {
+  event.preventDefault();   // prevents page reload
 
-const cropDatabase = {
-  rice: {
-    ph: "5.5 – 7.0",
-    nitrogen: "40 – 80 ppm (High)",
-    phosphorus: "20 – 40 ppm (Medium)",
-    potassium: "80 – 120 ppm (Medium)",
-    moisture: "60 – 80%",
-    temperature: "20°C – 35°C"
-  },
+  const city = document.getElementById("city").value;
 
-  wheat: {
-    ph: "6.0 – 7.5",
-    nitrogen: "30 – 60 ppm (Medium)",
-    phosphorus: "25 – 50 ppm (High)",
-    potassium: "70 – 100 ppm (Medium)",
-    moisture: "40 – 60%",
-    temperature: "10°C – 25°C"
-  },
+  const apiKey = "9af605c6039803ed7ef6884286a4604a";   // replace this
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  maize: {
-    ph: "5.8 – 7.0",
-    nitrogen: "50 – 90 ppm (High)",
-    phosphorus: "30 – 60 ppm (Medium)",
-    potassium: "90 – 130 ppm (High)",
-    moisture: "50 – 70%",
-    temperature: "18°C – 30°C"
-  },
+  const response = await fetch(url);
+  const data = await response.json();
 
-  potato: {
-    ph: "5.0 – 6.5",
-    nitrogen: "40 – 70 ppm (Medium)",
-    phosphorus: "35 – 60 ppm (High)",
-    potassium: "100 – 150 ppm (High)",
-    moisture: "50 – 70%",
-    temperature: "15°C – 20°C"
-  }
-};
-
-function getSoilData(event) {
-  event.preventDefault();
-
-  const crop = document.getElementById("cropName").value.toLowerCase();
-  const resultDiv = document.getElementById("result");
-
-  if (cropDatabase[crop]) {
-    const data = cropDatabase[crop];
-
-    resultDiv.innerHTML =
-      "<b>Optimal Soil Conditions for " + crop.toUpperCase() + ":</b><br><br>" +
-      "pH Range: " + data.ph + "<br>" +
-      "Nitrogen: " + data.nitrogen + "<br>" +
-      "Phosphorus: " + data.phosphorus + "<br>" +
-      "Potassium: " + data.potassium + "<br>" +
-      "Soil Moisture: " + data.moisture + "<br>" +
-      "Temperature: " + data.temperature;
-  } else {
-    resultDiv.innerHTML = "Crop not found in database.";
-  }
+  document.getElementById("result").innerHTML =
+    "Temperature: " + data.main.temp + "°C<br>" +
+    "Humidity: " + data.main.humidity + "%";
 }
-
 </script>
 
 </div>
 </div>
 </body>
-
 </html>
+
+
