@@ -1,61 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><M class="O O N"></M> Robotics Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Soil Requirements - M.O.O.N</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background-image: url('images/sunny-field-robot.jpg');">
+<body style="background-image: url('images/plant-soil.jpg');">
 <div class="overlay">
 <div class="container">
-
 <center>
-    <br><br>
-    <font size="7" face="Arial"><b>M.O.O.N Robotics</b></font>
-    <br><br>
-    <font size="4" color="#bbbbbb">Project Monitoring Dashboard</font>
-    <br><br><br>
 
-    <table width="60%" cellpadding="25" cellspacing="25">
-        <tr align="center">
+<br><br>
+<font size="6"><b>Soil Requirement Finder</b></font>
+<br><br>
 
-            <td bgcolor="#1d1d1d">
-                <a href="soil.html">
-                    <font size="5" color="cyan"><b>1. Soil Details</b></font>
-                </a>
-            </td>
+<form onsubmit="getSoilData(event)">
+  <input type="text" id="cropName" placeholder="Enter crop name" required>
+  <button type="submit">Search</button>
+</form>
 
-            <td bgcolor="#1d1d1d">
-                <a href="crop.html">
-                    <font size="5" color="cyan"><b>2. Crop Details</b></font>
-                </a>
-            </td>
+<br>
+<h3 id="result"></h3>
 
-        </tr>
-
-        <tr align="center">
-
-            <td bgcolor="#1d1d1d">
-                <a href="humidity.html">
-                    <font size="5" color="cyan"><b>3. Humidity</b></font>
-                </a>
-            </td>
-
-            <td bgcolor="#1d1d1d">
-                <a href="aqi.html">
-                    <font size="5" color="cyan"><b>4. AQI</b></font>
-                </a>
-            </td>
-
-        </tr>
-    </table>
+<br><br>
+<a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
 
 </center>
+
+<script>
+
+const cropDatabase = {
+  rice: {
+    ph: "5.5 – 7.0",
+    nitrogen: "40 – 80 ppm (High)",
+    phosphorus: "20 – 40 ppm (Medium)",
+    potassium: "80 – 120 ppm (Medium)",
+    moisture: "60 – 80%",
+    temperature: "20°C – 35°C"
+  },
+
+  wheat: {
+    ph: "6.0 – 7.5",
+    nitrogen: "30 – 60 ppm (Medium)",
+    phosphorus: "25 – 50 ppm (High)",
+    potassium: "70 – 100 ppm (Medium)",
+    moisture: "40 – 60%",
+    temperature: "10°C – 25°C"
+  },
+
+  maize: {
+    ph: "5.8 – 7.0",
+    nitrogen: "50 – 90 ppm (High)",
+    phosphorus: "30 – 60 ppm (Medium)",
+    potassium: "90 – 130 ppm (High)",
+    moisture: "50 – 70%",
+    temperature: "18°C – 30°C"
+  },
+
+  potato: {
+    ph: "5.0 – 6.5",
+    nitrogen: "40 – 70 ppm (Medium)",
+    phosphorus: "35 – 60 ppm (High)",
+    potassium: "100 – 150 ppm (High)",
+    moisture: "50 – 70%",
+    temperature: "15°C – 20°C"
+  }
+};
+
+function getSoilData(event) {
+  event.preventDefault();
+
+  const crop = document.getElementById("cropName").value.toLowerCase();
+  const resultDiv = document.getElementById("result");
+
+  if (cropDatabase[crop]) {
+    const data = cropDatabase[crop];
+
+    resultDiv.innerHTML =
+      "<b>Optimal Soil Conditions for " + crop.toUpperCase() + ":</b><br><br>" +
+      "pH Range: " + data.ph + "<br>" +
+      "Nitrogen: " + data.nitrogen + "<br>" +
+      "Phosphorus: " + data.phosphorus + "<br>" +
+      "Potassium: " + data.potassium + "<br>" +
+      "Soil Moisture: " + data.moisture + "<br>" +
+      "Temperature: " + data.temperature;
+  } else {
+    resultDiv.innerHTML = "Crop not found in database.";
+  }
+}
+
+</script>
 
 </div>
 </div>
 </body>
 
 </html>
-k,
