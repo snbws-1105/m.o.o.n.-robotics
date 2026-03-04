@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>AQI - M.O.O.N</title>
-  <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body >
+<body style="background-image: url('images/winter-fog.jpg');">
+<div class="overlay">
+<div class="container">
 <center>
 
 <br><br>
@@ -31,7 +34,7 @@ async function getAQI(event) {
   event.preventDefault();
 
   const city = document.getElementById("city").value;
-  const apiKey = "ff629b1b17972220e88e8578807aabfd";
+  const apiKey = "9af605c6039803ed7ef6884286a4604a";
 
   const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   const geoResponse = await fetch(geoUrl);
@@ -88,8 +91,9 @@ function calculateAQI(pm25) {
 }
 
 </script>
-
+</div>
+</div>
 </body>
-</html>
 
+</html>
 
