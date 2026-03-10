@@ -51,7 +51,7 @@ async function getAQI(event) {
   const pm10 = aqiData.list[0].components.pm10;
 
   const result = calculateAQI(pm25);
-
+  
   document.getElementById("result").innerHTML =
     "<b>Real AQI: " + result.value + "</b>" +
     "<br>Status: " + result.category +
