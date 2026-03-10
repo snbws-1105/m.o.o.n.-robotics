@@ -9,7 +9,7 @@
 <body style="background-image: url('images/autumn-field.jpg');">
 <div class="overlay">
 <div class="container">
-
+  
 <center>
     <br><br>
     <font size="6"><b>Humidity & Temperature</b></font>
@@ -18,18 +18,33 @@
     <!-- 🔥 Replace old static table with this -->
 
     <h2>Enter Location:</h2>
-    <form onsubmit="getWeather(event)">
+    <form onsubmit="getWeather(event); return false;">
   <input type="text" id="city" placeholder="Enter city">
   <button type="submit">Search</button>
 </form>
+<h2 class="humidity-line">
+💧 Humidity 
+<span id="humidityValue" class="sensor-number">0</span>%
+</h2>
+
+<div class="humidity-bar">
+<div id="humidityFill"></div>
+</div>
+<h2 class="temp-line">
+🌡 Temperature 
+<span id="tempValue" class="sensor-number">0</span>°C
+</h2>
+
+<div class="temp-bar">
+<div id="tempFill"></div>
+</div>
 
 <h3 id="result"></h3>
-    <br><br>
-    <h3 id="result"></h3>
-
-    <br><br>
+   
+    <br>
     <a href="index.html"><font color="cyan">⬅ Back to Home</font></a>
 </center>
+
 
 <script>
 async function getWeather(event) {
@@ -43,9 +58,46 @@ async function getWeather(event) {
   const response = await fetch(url);
   const data = await response.json();
 
-  document.getElementById("result").innerHTML =
-    "Temperature: " + data.main.temp + "°C<br>" +
-    "Humidity: " + data.main.humidity + "%";
+
+let temp = data.main.temp;
+
+document.getElementById("tempValue").innerHTML = temp.toFixed(1);
+
+let tempPercent = ((temp + 20) / 70) * 100;
+tempPercent = Math.max(0, Math.min(100, tempPercent));
+document.getElementById("tempFill").style.width = tempPercent + "%";
+
+let humidity = data.main.humidity;
+
+animateValue("humidityValue",0,humidity,600);
+
+document.getElementById("humidityFill").style.width = humidity + "%";
+}
+function animateValue(id, start, end, duration){
+
+let element = document.getElementById(id);
+let startTime = null;
+
+function animation(currentTime){
+
+if(!startTime) startTime = currentTime;
+
+let progress = currentTime - startTime;
+
+let value = Math.floor((progress / duration) * end);
+
+if(value > end) value = end;
+
+element.innerHTML = value;
+
+if(progress < duration){
+requestAnimationFrame(animation);
+}
+
+}
+
+requestAnimationFrame(animation);
+
 }
 </script>
 
@@ -53,5 +105,4 @@ async function getWeather(event) {
 </div>
 </body>
 </html>
-
 
