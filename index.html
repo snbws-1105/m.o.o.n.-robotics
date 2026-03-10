@@ -1,62 +1,97 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title><M class="O O N"></M> Robotics Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 
 <body style="background-image: url('images/sunny-field-robot.jpg');">
+    <nav class="navbar">
+    <div class="logo">M.O.O.N. Robotics</div>
+
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    
+</nav>
+    
 <div class="overlay">
 <div class="container">
-
-<center>
+    <center>
     <br><br>
-    <font size="7" face="Arial"><b>M.O.O.N Robotics</b></font>
+    <font size="7" face="Arial"><h1 class="moon-title">
+<span class="moon">M.O.O.N.</span> Robotics
+
+</h1>
+
+
+<p class="tagline">Smart Agriculture Monitoring</p></font>
+    <br>
+    <font size="5" color="black">Project Monitoring Dashboard</font>
     <br><br>
-    <font size="4" color="#bbbbbb">Project Monitoring Dashboard</font>
-    <br><br><br>
 
-    <table width="60%" cellpadding="25" cellspacing="25">
-        <tr align="center">
-
-            <td bgcolor="#1d1d1d">
-                <a href="soil.html">
-                    <font size="5" color="cyan"><b>1. Soil Details</b></font>
-                </a>
-            </td>
-
-            <td bgcolor="#1d1d1d">
-                <a href="crop.html">
-                    <font size="5" color="cyan"><b>2. Crop Details</b></font>
-                </a>
-            </td>
-
-        </tr>
-
-        <tr align="center">
-
-            <td bgcolor="#1d1d1d">
-                <a href="humidity.html">
-                    <font size="5" color="cyan"><b>3. Humidity</b></font>
-                </a>
-            </td>
-
-            <td bgcolor="#1d1d1d">
-                <a href="aqi.html">
-                    <font size="5" color="cyan"><b>4. AQI</b></font>
-                </a>
-            </td>
-
-        </tr>
-    </table>
+   <div class="menu">
+    <a href="soil.html" class="menu-btn">🌱 Soil Details</a>
+    <a href="crop.html" class="menu-btn">🌾 Crop Details</a>
+    <a href="humidity.html" class="menu-btn">💧 Humidity</a>
+    <a href="aqi.html" class="menu-btn">🌫 AQI</a>
+</div>
 
 </center>
 
+
+
+
+
+</div> 
 </div>
+<section id="about" class="info-section">
+    <h2>About The Project</h2>
+
+    <p>
+    M.O.O.N Robotics is an intelligent agricultural monitoring robot designed 
+    to analyze soil conditions and environmental parameters in real time.
+    The robot measures soil nutrients (NPK), humidity, air quality, and crop
+    requirements to help farmers make better agricultural decisions.
+    </p>
+
+    <p>
+    This project combines robotics, sensors, and web technologies to create
+    a smart farming monitoring system.
+    </p>
+</section>
+<section id="members" class="info-section">
+
+<h2>Project Members</h2>
+
+<div class="member-box">
+
+<p><b>Ishan Samanta</b><br>
+Project Lead & Instructor</p>
+
+<p><b>Shouvik Show</b><br>
+Electronics & Hardware Development</p>
+
+<p><b>Sayan Biswas</b><br>
+Software & Web Development</p>
+
 </div>
+
+</section>
+<section id="contact" class="info-section">
+
+<h2>Contact</h2>
+
+<p>Email: communityxmen@gmail.com</p>
+
+<p>Institution: M.O.O.N. Scientific Developement Authority </p>
+
+<p>Location: Kolkata, West Bengal, India</p>
+
+</section>
 </body>
-
 </html>
-
